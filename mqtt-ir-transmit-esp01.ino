@@ -152,5 +152,22 @@ void radioSend(unsigned long code) {
 }
 
 void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    WiFi.begin(ssid, password); //reinitialize wifi
+
+    while (!client.connected()) {
+      Serial.println("Connecting to MQTT...");
+      if (client.connect("ESP8266Client", mqttUser, mqttPassword )) {
+        Serial.println("connected");
+      } else {
+        Serial.print("failed with state ");
+        Serial.print(client.state());
+        delay(2000);
+      }
+    }
+    client.publish(mqttState, "STATUS:Online"); //Send a message: Online - for debugging
+    client.subscribe(mqttTopic);
+  }
   client.loop();
 }
