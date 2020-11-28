@@ -1,2 +1,4 @@
 # mqtt-ir-transmit-esp
- MQTT IRTrasmit to ESP01
+ MQTT IRTransmit program for ESP01 (8266)
+
+Smart util of my OpenHab Project controlling led curtain
